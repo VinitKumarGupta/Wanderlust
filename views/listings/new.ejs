@@ -1,0 +1,206 @@
+<%- layout("/layouts/boilerplate") %>
+<div class="row">
+    <div class="col-8 offset-2 full-space">
+        <h2 class="mb-4">Create a new listing:</h2>
+        <form
+            method="POST"
+            action="/listings"
+            class="needs-validation"
+            novalidate
+            enctype="multipart/form-data"
+        >
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input
+                    type="text"
+                    name="listing[title]"
+                    placeholder="Add a catchy title"
+                    class="form-control"
+                    required
+                />
+                <div class="invalid-feedback">Invalid Title.</div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea
+                    name="listing[description]"
+                    class="form-control"
+                    required
+                ></textarea>
+                <div class="invalid-feedback">Invalid Description.</div>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label"
+                    >Upload Listing Image</label
+                >
+                <input
+                    name="listing[image]"
+                    type="file"
+                    class="form-control"
+                    required
+                />
+                <div class="invalid-feedback">Listing Image is Required.</div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input
+                        name="listing[price]"
+                        placeholder="1200"
+                        class="form-control"
+                        required
+                    />
+                    <div class="invalid-feedback">Invalid Price</div>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label for="location" class="form-label">Location</label>
+                    <input
+                        type="text"
+                        name="listing[location]"
+                        placeholder="Jaipur, Rajasthan"
+                        class="form-control"
+                        required
+                    />
+                    <div class="invalid-feedback">Invalid location</div>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label for="country" class="form-label">Country</label>
+                    <input
+                        type="text"
+                        name="listing[country]"
+                        placeholder="India"
+                        class="form-control"
+                        required
+                    />
+                    <div class="invalid-feedback">Invalid country name</div>
+                </div>
+            </div>
+            <!-- Category input (replacing select) -->
+            <div class="mb-3 col-md-12">
+                <label for="categoryInput" class="form-label"
+                    >Select all categories that apply</label
+                >
+                <input
+                    type="text"
+                    id="categoryInput"
+                    class="form-control"
+                    placeholder="Start typing..."
+                    autocomplete="off"
+                />
+                <div id="suggestions" class="list-group mt-1"></div>
+                <div id="selectedCategories" class="mt-2"></div>
+                <input
+                    type="hidden"
+                    name="listing[categories]"
+                    id="categoryHiddenInput"
+                />
+            </div>
+
+            <!-- Category styling + logic -->
+            <style>
+                .tag {
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center; /* Ensures vertical centering */
+                    background-color: #ffc107;
+                    color: #000;
+                    border-radius: 20px;
+                    padding: 5px 10px;
+                    margin: 2px;
+                    font-size: 14px;
+                }
+
+                .tag .remove-tag {
+                    cursor: pointer;
+                    margin-left: 8px;
+                    font-weight: bold;
+                    line-height: 1; /* Ensures proper vertical alignment */
+                }
+            </style>
+
+            <script>
+                const allCategories = [
+                    "pools",
+                    "trending",
+                    "farms",
+                    "top cities",
+                    "camping",
+                    "castles",
+                    "skating",
+                    "hotels",
+                    "beach",
+                    "igloos",
+                    "mountains",
+                    "rooms",
+                    "ski-in/out",
+                    "boats",
+                    "creative spaces",
+                    "caravans",
+                    "arctic",
+                    "nature",
+                    "golfing",
+                    "urban",
+                    "cabins",
+                    "snowboarding",
+                    "luxury",
+                    "cozy",
+                ];
+
+                const catInput = document.getElementById("categoryInput");
+                const suggestions = document.getElementById("suggestions");
+                const selectedContainer =
+                    document.getElementById("selectedCategories");
+                const hiddenInput = document.getElementById(
+                    "categoryHiddenInput"
+                );
+                let selectedCategories = [];
+
+                catInput.addEventListener("input", function () {
+                    const value = this.value.toLowerCase();
+                    suggestions.innerHTML = "";
+                    if (!value) return;
+                    const filtered = allCategories.filter(
+                        (c) =>
+                            c.toLowerCase().includes(value) &&
+                            !selectedCategories.includes(c)
+                    );
+                    filtered.forEach((cat) => {
+                        const div = document.createElement("div");
+                        div.classList.add(
+                            "list-group-item",
+                            "list-group-item-action"
+                        );
+                        div.textContent = cat;
+                        div.onclick = () => {
+                            selectedCategories.push(cat);
+                            updateSelectedTags();
+                            catInput.value = "";
+                            suggestions.innerHTML = "";
+                        };
+                        suggestions.appendChild(div);
+                    });
+                });
+
+                function updateSelectedTags() {
+                    selectedContainer.innerHTML = "";
+                    selectedCategories.forEach((cat) => {
+                        const tag = document.createElement("span");
+                        tag.className = "tag";
+                        tag.innerHTML = `${cat} <span class="remove-tag">&times;</span>`;
+                        tag.querySelector(".remove-tag").onclick = () => {
+                            selectedCategories = selectedCategories.filter(
+                                (c) => c !== cat
+                            );
+                            updateSelectedTags();
+                        };
+                        selectedContainer.appendChild(tag);
+                    });
+                    hiddenInput.value = selectedCategories.join(",");
+                }
+            </script>
+            <button class="btn btn-dark add-btn mt-3 mb-5">
+                Create Listing
+            </button>
+        </form>
+    </div>
+</div>

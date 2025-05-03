@@ -1,0 +1,168 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <div id="filter-wrapper">
+        <!-- Filters Section (Left) -->
+        <div class="wr-child">
+            <button class="arrow arrow-left" onclick="scrollFilters('left')">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div id="filters">
+                <div class="filter">
+                    <i class="fa-solid fa-water-ladder"></i>
+                    <p>Pools</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-fire"></i>
+                    <p>Trending</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-cow"></i>
+                    <p>Farms</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-mountain-city"></i>
+                    <p>Top Cities</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-campground"></i>
+                    <p>Camping</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-brands fa-fort-awesome"></i>
+                    <p>Castles</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-person-skating"></i>
+                    <p>Skating</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-hotel"></i>
+                    <p>Hotels</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-umbrella-beach"></i>
+                    <p>Beach</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-igloo"></i>
+                    <p>Igloos</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-mountain"></i>
+                    <p>Mountains</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-bed"></i>
+                    <p>Rooms</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-person-skiing"></i>
+                    <p>Ski-in/out</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-sailboat"></i>
+                    <p>Boats</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-palette"></i>
+                    <p>Creative spaces</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-caravan"></i>
+                    <p>Caravans</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-snowflake"></i>
+                    <p>Arctic</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-tree"></i>
+                    <p>Nature</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-golf-ball-tee"></i>
+                    <p>Golfing</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-city"></i>
+                    <p>Urban</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-house-chimney"></i>
+                    <p>Cabins</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-person-snowboarding"></i>
+                    <p>Snowboarding</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-wine-glass"></i>
+                    <p>Luxury</p>
+                </div>
+                <div class="filter">
+                    <i class="fa-solid fa-mug-hot"></i>
+                    <p>Cozy</p>
+                </div>
+            </div>
+            <button class="arrow arrow-right" onclick="scrollFilters('right')">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Toggle Switch Section (Right) -->
+        <div class="wr-child tax-toggle">
+            <div class="form-check-reverse form-switch">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    role="switch"
+                    id="flexSwitchCheckDefault"
+                />
+                <label class="form-check-label" for="flexSwitchCheckDefault"
+                    >Display total after taxes</label
+                >
+            </div>
+        </div>
+    </div>
+
+    <!-- Listing Cards -->
+    <% if (allListings.length === 0) { %>
+    <p class="text-center text-gray-600 mt-4 mb-4">
+        No listings found. Try a different keyword!
+    </p>
+    <% } else { %>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
+        <% for(listing of allListings) { %>
+        <div class="card listing-card">
+            <a href="/listings/<%= listing.id %>" class="listing-link">
+                <img
+                    src="<%= listing.image.url %>"
+                    class="card-img-top"
+                    alt="listing_image"
+                />
+                <div class="card-img-overlay"></div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <b><%= listing.title %></b><br />
+                        <span class="price-before"
+                            ><b
+                                >&#8377;<%=
+                                listing.price.toLocaleString("en-IN") %></b
+                            >
+                            per night</span
+                        >
+                        <span class="price-after">
+                            <b>
+                                &#8377; <%= ((listing.price) *
+                                1.18).toLocaleString("en-IN") %>
+                            </b>
+                            per night<i>&nbsp;(18% GST)</i>
+                        </span>
+                    </p>
+                </div>
+            </a>
+        </div>
+        <% } %>
+    </div>
+    <% } %>
+</body>
