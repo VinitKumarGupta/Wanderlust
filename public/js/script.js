@@ -17,7 +17,7 @@
     });
 })();
 
-//! ============================= FLASH MESSAGES ============================= !//
+//! ============================= FLASH MESSAGES ============================== !//
 document.addEventListener("DOMContentLoaded", () => {
     const flashMessages = document.querySelectorAll(".flash-message");
     flashMessages.forEach((message) => {
@@ -312,16 +312,4 @@ document.addEventListener("visibilitychange", () => {
         document.visibilityState === "hidden"
             ? "Come back to explore more!"
             : originalTitle;
-});
-
-// Hamburger icon toggle fix
-document.addEventListener("DOMContentLoaded", () => {
-    const toggler = document.querySelector(".navbar-toggler");
-    const collapse = document.getElementById("navbarUserLinks");
-
-    if (toggler && collapse) {
-        toggler.addEventListener("click", () => {
-            collapse.classList.toggle("show");
-        });
-    }
 });
