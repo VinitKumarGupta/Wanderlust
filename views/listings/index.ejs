@@ -1,11 +1,8 @@
 <% layout("/layouts/boilerplate") %>
 <body>
     <div id="filter-wrapper">
-        <!-- Filters Section (Left) -->
-        <div class="wr-child">
-            <button class="arrow arrow-left" onclick="scrollFilters('left')">
-                <i class="fa-solid fa-chevron-left"></i>
-            </button>
+        <!-- Filters Section -->
+        <div class="filters-container">
             <div id="filters">
                 <div class="filter">
                     <i class="fa-solid fa-water-ladder"></i>
@@ -104,24 +101,21 @@
                     <p>Cozy</p>
                 </div>
             </div>
-            <button class="arrow arrow-right" onclick="scrollFilters('right')">
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
         </div>
+    </div>
 
-        <!-- Toggle Switch Section (Right) -->
-        <div class="wr-child tax-toggle">
-            <div class="form-check-reverse form-switch">
-                <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="flexSwitchCheckDefault"
-                />
-                <label class="form-check-label" for="flexSwitchCheckDefault"
-                    >Display total after taxes</label
-                >
-            </div>
+    <!-- Floating Tax Toggle -->
+    <div class="tax-toggle-floating">
+        <div class="form-check-reverse form-switch">
+            <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckDefault"
+            />
+            <label class="form-check-label" for="flexSwitchCheckDefault"
+                >Incl. taxes</label
+            >
         </div>
     </div>
 

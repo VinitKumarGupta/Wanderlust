@@ -39,35 +39,40 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //! ============================= INDEX PAGE STUFF ============================= !//
-function scrollFilters(direction) {
-    const container = document.getElementById("filters");
-    const scrollAmount = 300;
-    container.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
+
+// Drag-to-scroll for filter bar
+const filterContainer = document.getElementById("filters");
+
+if (filterContainer) {
+    let isDown = false;
+    let startX;
+    let scrollLeftPos;
+
+    filterContainer.addEventListener("mousedown", (e) => {
+        isDown = true;
+        filterContainer.style.cursor = "grabbing";
+        startX = e.pageX - filterContainer.offsetLeft;
+        scrollLeftPos = filterContainer.scrollLeft;
+    });
+
+    filterContainer.addEventListener("mouseleave", () => {
+        isDown = false;
+        filterContainer.style.cursor = "grab";
+    });
+
+    filterContainer.addEventListener("mouseup", () => {
+        isDown = false;
+        filterContainer.style.cursor = "grab";
+    });
+
+    filterContainer.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - filterContainer.offsetLeft;
+        const walk = (x - startX) * 2;
+        filterContainer.scrollLeft = scrollLeftPos - walk;
     });
 }
-
-window.onbeforeunload = () => window.scrollTo(0, 0);
-
-const filterContainer = document.getElementById("filters");
-const leftArrow = document.querySelector(".arrow-left");
-const rightArrow = document.querySelector(".arrow-right");
-
-function updateArrowVisibility() {
-    if (!filterContainer) return;
-    const scrollLeft = filterContainer.scrollLeft;
-    const maxScrollLeft =
-        filterContainer.scrollWidth - filterContainer.clientWidth;
-    leftArrow.style.display = scrollLeft <= 0 ? "none" : "block";
-    rightArrow.style.display =
-        Math.ceil(scrollLeft) >= Math.floor(maxScrollLeft) ? "none" : "block";
-}
-
-window.addEventListener("load", updateArrowVisibility);
-window.addEventListener("resize", updateArrowVisibility);
-if (filterContainer)
-    filterContainer.addEventListener("scroll", updateArrowVisibility);
 
 // Navbar blur on scroll
 window.addEventListener("scroll", () => {
