@@ -50,6 +50,15 @@ module.exports.createNewListing = async (req, res, next) => {
         })
         .send();
 
+    // Prevent server crash if location is invalid
+    if (!response.body.features.length) {
+        req.flash(
+            "error",
+            "Invalid location entered. Please provide a valid address.",
+        );
+        return res.redirect("/listings/new");
+    }
+
     let url = req.file.path;
     let filename = req.file.filename;
 
@@ -73,7 +82,7 @@ module.exports.editListing = async (req, res) => {
     let originalImageUrl = listing.image.url;
     originalImageUrl = originalImageUrl.replace(
         "/upload",
-        "/upload/h_200,w_350"
+        "/upload/h_200,w_350",
     );
     res.render("listings/edit.ejs", {
         listing,
@@ -85,6 +94,9 @@ module.exports.editListing = async (req, res) => {
 module.exports.updateListing = async (req, res) => {
     const { id } = req.params;
 
+    // First update the text/basic data
+    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+
     // Geocode the new location if it was updated
     if (req.body.listing.location) {
         let response = await geocodingClient
@@ -94,21 +106,23 @@ module.exports.updateListing = async (req, res) => {
             })
             .send();
 
-        // Update the geometry field with new coordinates
-        req.body.listing.geometry = response.body.features[0].geometry;
+        // Safely check if coordinates exist before updating
+        if (response.body.features.length > 0) {
+            listing.geometry = response.body.features[0].geometry;
+        } else {
+            req.flash(
+                "error",
+                "Could not pinpoint new location on map. Using previous coordinates.",
+            );
+        }
     }
 
-    // Update the listing with the new data
-    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-
-    // Handle image update if a new file is uploaded
     if (typeof req.file !== "undefined") {
         let url = req.file.path;
         let filename = req.file.filename;
         listing.image = { url, filename };
     }
 
-    // Save the updated listing
     await listing.save();
     req.flash("success", "Listing updated successfully!");
     res.redirect(`/listings/${id}`);
