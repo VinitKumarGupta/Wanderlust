@@ -227,6 +227,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentCategory) {
         highlightSelectedCategory(currentCategory);
     }
+
+    // Hide tax toggle when footer is visible
+    const taxToggleFloating = document.querySelector(".tax-toggle-floating");
+    const footerElement = document.querySelector("footer");
+
+    if (taxToggleFloating && footerElement) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    taxToggleFloating.style.opacity = "0";
+                    taxToggleFloating.style.pointerEvents = "none";
+                } else {
+                    taxToggleFloating.style.opacity = "1";
+                    taxToggleFloating.style.pointerEvents = "auto";
+                }
+            },
+            { threshold: 0.1 }
+        );
+        observer.observe(footerElement);
+    }
 });
 
 //! ============= LOGIC FOR THE NEW.EJS CATEGORY INPUT ============= !//
