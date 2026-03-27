@@ -131,36 +131,38 @@
         No listings found. Try a different keyword!
     </p>
     <% } else { %>
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-4">
         <% for(listing of allListings) { %>
-        <div class="card listing-card">
-            <a href="/listings/<%= listing.id %>" class="listing-link">
-                <img
-                    src="<%= listing.image.url %>"
-                    class="card-img-top"
-                    alt="listing_image"
-                />
-                <div class="card-img-overlay"></div>
-                <div class="card-body">
-                    <p class="card-text">
-                        <b><%= listing.title %></b><br />
-                        <span class="price-before"
-                            ><b
-                                >&#8377;<%=
-                                listing.price.toLocaleString("en-IN") %></b
+        <div class="col">
+            <div class="card listing-card">
+                <a href="/listings/<%= listing.id %>" class="listing-link">
+                    <img
+                        src="<%= listing.image.url %>"
+                        class="card-img-top"
+                        alt="listing_image"
+                    />
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b><%= listing.title %></b><br />
+                            <span class="price-before"
+                                ><b
+                                    >&#8377;<%=
+                                    listing.price.toLocaleString("en-IN") %></b
+                                >
+                                per night</span
                             >
-                            per night</span
-                        >
-                        <span class="price-after">
-                            <b>
-                                &#8377; <%= ((listing.price) *
-                                1.18).toLocaleString("en-IN") %>
-                            </b>
-                            per night<i>&nbsp;(18% GST)</i>
-                        </span>
-                    </p>
-                </div>
-            </a>
+                            <span class="price-after">
+                                <b>
+                                    &#8377; <%= ((listing.price) *
+                                    1.18).toLocaleString("en-IN") %>
+                                </b>
+                                per night<i>&nbsp;(18% GST)</i>
+                            </span>
+                        </p>
+                    </div>
+                </a>
+            </div>
         </div>
         <% } %>
     </div>
