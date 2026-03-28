@@ -23,6 +23,7 @@ The project is structured using the **MVC (Model-View-Controller)** pattern to e
 * **Authorization:** Middleware ensures that only listing owners can modify or delete their posts.
 * **Geospatial Integration:** Includes geometry data for mapping listings (Mapbox ready).
 * **Flash Messaging:** Real-time feedback for user actions like successful login or error alerts.
+* **Custom Error Handling:** A centralized error-handling system for unauthorized access and invalid routes (404), providing clear feedback through a dedicated error page with a graceful fallback to the main listings.
 
 
 ## Tech Stack
