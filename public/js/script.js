@@ -338,3 +338,22 @@ document.addEventListener("visibilitychange", () => {
             ? "Come back to explore more!"
             : originalTitle;
 });
+
+//! ======================== PASSWORD VISIBILITY TOGGLE ======================== !//
+document.addEventListener("DOMContentLoaded", () => {
+    const togglePassword = document.querySelector("#togglePassword");
+    
+    if (togglePassword) {
+        togglePassword.addEventListener("click", function () {
+            // Find the closest input inside the same container
+            const pswdInput = this.parentElement.querySelector("input[name='password']");
+            if (pswdInput) {
+                const type = pswdInput.getAttribute("type") === "password" ? "text" : "password";
+                pswdInput.setAttribute("type", type);
+                // Toggle the eye / eye slash icon
+                this.classList.toggle("fa-eye");
+                this.classList.toggle("fa-eye-slash");
+            }
+        });
+    }
+});

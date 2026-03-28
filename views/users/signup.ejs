@@ -26,13 +26,17 @@
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          class="form-control"
-          required
-        />
+        <div class="position-relative">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="form-control"
+            required
+            style="padding-right: 2.5rem;"
+          />
+          <i class="fa-regular fa-eye-slash position-absolute" id="togglePassword" style="right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #6c757d; font-size: 1.1rem; z-index: 10;"></i>
+        </div>
       </div>
       <p>
         Already have an account?
