@@ -21,7 +21,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo"); // MongoDB Session Store
 const flash = require("connect-flash");
 
-const dbUrl = process.env.ATLASDB_URL;
+const dbUrl = process.env.ATLASDB_URL || 'mongodb://127.0.0.1:27017/wanderlust';
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
