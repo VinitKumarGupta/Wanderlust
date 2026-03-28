@@ -46,7 +46,7 @@ body {
 }
 
 .brand-name {
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin: 0 0.5rem;
     font-family: "Jost", "Sans-serif";
     color: #fe424d;
@@ -422,6 +422,7 @@ body {
     align-items: center;
     width: 100%;
     padding: 0.75rem 0;
+    margin-top: 1.5rem;
     border-bottom: 1px solid #eee;
 }
 
@@ -685,10 +686,6 @@ body {
         padding: 0.5rem 0;
     }
 
-    .brand-name {
-        font-size: 1.5rem;
-    }
-
     .fa-airbnb {
         font-size: 1.6rem;
     }
@@ -753,11 +750,11 @@ body {
 @media (max-width: 768px) {
     /* --- Navbar --- */
     .brand-name {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
     }
 
     .fa-airbnb {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
 
     /* Search bar: narrower, hide button text, show icon */
@@ -880,11 +877,11 @@ body {
     }
 
     .brand-name {
-        font-size: 1.15rem;
+        font-size: 1.4rem;
     }
 
     .fa-airbnb {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
     }
 
     /* --- Search bar --- */
