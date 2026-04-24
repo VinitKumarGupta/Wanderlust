@@ -32,7 +32,7 @@ const initDB = async () => {
     await Listing.deleteMany({}); // Clears whole database
     dummyData.data = dummyData.data.map((obj) => ({
         ...obj,
-        owner: "67f11f0052bab705c1c56ae7", // VinitKumarGupta as the owner of all current listings.
+        owner: "69eba6bd389f6dd223872cfb", // VinitKumarGupta as the owner of all current listings.
         // Schema logically requires 'geometry' now, adding a default coordinate point logic prevents validation failing.
         geometry: {
             type: "Point",
