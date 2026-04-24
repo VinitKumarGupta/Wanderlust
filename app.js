@@ -27,7 +27,7 @@ app.use(
     cors({
         origin:
             process.env.NODE_ENV === "production"
-                ? "https://wanderlust-murex-omega.vercel.app"
+                ? "https://wanderlust-murex-omega.vercel.app/listings"
                 : "http://localhost:5173",
         credentials: true,
     }),
