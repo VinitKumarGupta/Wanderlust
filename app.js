@@ -27,7 +27,7 @@ app.use(
     cors({
         origin:
             process.env.NODE_ENV === "production"
-                ? "https://wanderlust-2qm3277j5-vinit-kumar-guptas-projects.vercel.app"
+                ? "https://wanderlust-murex-omega.vercel.app"
                 : "http://localhost:5173",
         credentials: true,
     }),
