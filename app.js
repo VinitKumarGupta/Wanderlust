@@ -6,6 +6,8 @@ if (process.env.NODE_ENV != "production") {
 
 const express = require("express");
 const app = express();
+app.set("trust proxy", 1);
+
 const mongoose = require("mongoose");
 const path = require("path");
 const ExpressError = require("./utils/ExpressError.js");
@@ -76,6 +78,10 @@ const sessionOptions = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // Add these two lines for cross-origin authentication!
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        // Keep your existing expires/maxAge
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
     },
