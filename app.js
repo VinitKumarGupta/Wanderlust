@@ -27,10 +27,10 @@ app.use(
     cors({
         origin:
             process.env.NODE_ENV === "production"
-                ? false
+                ? "https://wanderlust-travel-app-tau.vercel.app"
                 : "http://localhost:5173",
         credentials: true,
-    })
+    }),
 );
 
 // *============== CORE MIDDLEWARE ==============* //
