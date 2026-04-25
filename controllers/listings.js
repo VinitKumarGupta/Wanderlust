@@ -8,7 +8,7 @@ module.exports.index = async (req, res) => {
     let query = {};
 
     if (category) {
-        query = { categories: category };
+        query = { categories: { $in: [category.toLowerCase()] } };
     }
 
     const listings = await Listing.find(query);
