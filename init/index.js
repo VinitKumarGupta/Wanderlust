@@ -38,7 +38,6 @@ const initDB = async () => {
             type: "Point",
             coordinates: [77.209, 28.6139], // Defaulting to somewhere (e.g. New Delhi)
         },
-        // We can add a default category as well, assuming it isn't strictly necessary but helpful.
     }));
     await Listing.insertMany(dummyData.data); // Fills whole database with dummyData
     // dummyData is an object, we needed the 'data' key from it.
