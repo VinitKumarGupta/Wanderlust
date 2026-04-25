@@ -5,13 +5,20 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 module.exports.index = async (req, res) => {
     const { category } = req.query;
-    let query = {};
 
+    // --- DEBUGGING LOGS --- //
+    console.log("1. Filter Clicked! Category received:", category);
+
+    let query = {};
     if (category) {
         query = { categories: { $in: [category.toLowerCase()] } };
+        console.log("2. Constructed DB Query:", JSON.stringify(query));
     }
 
     const listings = await Listing.find(query);
+    console.log(`3. DB returned ${listings.length} listings!`);
+    // ---------------------- //
+
     res.json({ listings });
 };
 
